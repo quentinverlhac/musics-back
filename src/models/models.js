@@ -51,18 +51,6 @@ const room = db.define('room', {
 });
 
 const reservation = db.define('reservation', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  roomId: {
-    type: Sequelize.INTEGER,
-  },
-  userId: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
   beginning: {
     type: Sequelize.DATE,
   },
@@ -82,34 +70,9 @@ const instrument = db.define('instrument', {
   },
 });
 
-const player = db.define('player', {
-  idUser: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
-  idInstrument: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
-});
-
-const inventory = db.define('inventory', {
-  idRoom: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
-  idInstrument: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-  },
-});
-
-
 module.exports = {
   user,
   room,
   reservation,
-  inventory,
   instrument,
-  player,
 };
