@@ -1,0 +1,11 @@
+{
+  "name": "site-de-MUSICS",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@gitlab.viarezo.fr:Site-de-MUSICS/back.git",
+  "author": "Rémi Calixte <remi.calixte@student.ecp.fr>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
