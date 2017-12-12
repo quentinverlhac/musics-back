@@ -11,6 +11,8 @@
   "dependencies": {
     "eslint": "^4.12.1",
     "express": "^4.16.2",
+    "mariadb": "0.0.2-security",
+    "mysql": "^2.15.0",
     "mysql2": "^1.5.1",
     "sequelize": "^4.26.0"
   },

@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('MUSICS', 'user', 'password', {
-  host: 'localhost',
-  dialect: 'mariadb',
+  host: 'db',
+  dialect: 'mysql',
   pool: {
     max: 5,
     min: 0,
