@@ -1,28 +1,28 @@
 const db = require('../models/database');
-const models = require('../models/models');
+const models = require('../models/relations');
 
 const initializeDummyData = async () => {
   // force: true will drop the table if it already exists
-  await db.sync();
+  await db.sync({ force: true });
 
-  await models.user.create({
-    firstName: 'John Hancock',
+  const user = await models.user.create({
+    fullName: 'John Doe',
     password: 'password',
-    mail: 'john.hancock@supelec.fr',
+    mail: 'john.doe@supelec.fr',
     telephone: '0600660066',
     admin: false,
     adherent: true,
   });
   await models.user.create({
-    firstName: 'Bob Hancock',
+    fullName: 'Bob Doe',
     password: 'password',
-    mail: 'bob.hancock@supelec.fr',
+    mail: 'bob.doe@supelec.fr',
     telephone: '0600330033',
     admin: false,
     adherent: false,
   });
   await models.user.create({
-    firstName: 'Quentin Verlhac',
+    fullName: 'Quentin Verlhac',
     password: 'password',
     mail: 'quentin.verlhac@student.ecp.fr',
     telephone: '0600220022',
@@ -30,7 +30,7 @@ const initializeDummyData = async () => {
     adherent: true,
   });
 
-  await models.instrument.create({
+  const instrument = await models.instrument.create({
     name: 'guitare',
   });
   await models.instrument.create({
@@ -40,7 +40,7 @@ const initializeDummyData = async () => {
     name: 'basse',
   });
 
-  await models.room.create({
+  const room = await models.room.create({
     number: 'E008',
     capacity: 3,
     photoPath: 'url',
@@ -61,6 +61,16 @@ const initializeDummyData = async () => {
     purpose: 'Enregistrement',
     restricted: true,
   });
+
+  console.log(user.setRooms);
+  console.log(user.addRoom);
+  console.log(user.addRooms);
+  console.log(user.getRooms);
+  console.log(user.createRoom);
+  await user.addInstruments(instrument, { through: { } });
+  await room.addInstruments(instrument, { through: { } });
+  const something = await user.addRooms(room, { through: { beginning: '2017-12-12 14:00:00', duration: 3600 } });
+  return something;
 };
 
 module.exports = initializeDummyData;
