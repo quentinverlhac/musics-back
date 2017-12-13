@@ -7,8 +7,8 @@ async function get(req, res, next) {
     // models.reservation.findAll({
     //     where: { id: req.params.id },
     //   })
-    const user = await models.user.findById(req.params.id);
-    const reservations = await user.getReservations();
+    const user = await models.user.findById(req.params.userId);
+    const reservations = await user.getRooms();
     console.log(reservations);
     res.send(reservations);
   } catch (e) {

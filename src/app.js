@@ -5,6 +5,7 @@ const cors = require('cors');
 const initializeDummyData = require('./tests/dataBaseCreationTest');
 const printData = require('./tests/printDataTest');
 const authRouter = require('./auth/router');
+const routers = require('./routers');
 
 const app = express();
 
@@ -16,5 +17,7 @@ app.use(bodyParser.json());
 
 app.use('/auth', authRouter);
 initializeDummyData().then(printData);
+
+app.use('/reservations', routers.reservations);
 
 module.exports = app;
