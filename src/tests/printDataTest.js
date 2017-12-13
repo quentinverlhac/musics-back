@@ -1,5 +1,4 @@
-// const db = require('../models/database');
-const models = require('../models/models');
+const models = require('../models/relations');
 
 const printData = async () => {
   const users = await models.user.findAll();

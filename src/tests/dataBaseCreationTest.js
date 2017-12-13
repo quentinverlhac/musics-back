@@ -3,7 +3,7 @@ const models = require('../models/relations');
 
 const initializeDummyData = async () => {
   // force: true will drop the table if it already exists
-  await db.sync({ force: true });
+  await db.sync();
 
   const user = await models.user.create({
     fullName: 'John Doe',
@@ -62,11 +62,6 @@ const initializeDummyData = async () => {
     restricted: true,
   });
 
-  console.log(user.setRooms);
-  console.log(user.addRoom);
-  console.log(user.addRooms);
-  console.log(user.getRooms);
-  console.log(user.createRoom);
   await user.addInstruments(instrument, { through: { } });
   await room.addInstruments(instrument, { through: { } });
   const something = await user.addRooms(room, { through: { beginning: '2017-12-12 14:00:00', duration: 3600 } });
