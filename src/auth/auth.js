@@ -15,11 +15,24 @@ module.exports = (req, res) => {
       client_id: config.oauth.client_id,
       client_secret: config.oauth.client_secret,
     })).then(({ data }) => {
-      res.json({
-        access_token: data.access_token,
-        expires_at: data.expires_at,
-      });
-    }).catch(err => console.log(err));
+      axios({
+        url: config.oauth.api,
+        headers: { Authorization: `Bearer ${data.access_token}` },
+      }).then((apiResponse) => {
+        const user = {
+          firstname: apiResponse.data.firstName,
+          lastname: apiResponse.data.lastName,
+          login: apiResponse.data.login,
+          email: apiResponse.data.email,
+        };
+        res.json({
+          access_token: data.access_token,
+          expires_at: data.expires_at,
+          user,
+        });
+      }).catch(err => console.log(err));
+    })
+      .catch(err => console.log(err));
   }
 };
 

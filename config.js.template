@@ -1,6 +1,7 @@
 module.exports = {
   oauth: {
     token: 'https://auth.viarezo.fr/oauth/token',
+    api: 'https://auth.viarezo.fr/api/user/show/me',
     redirect_uri: 'http://localhost:4200/callback',
     client_id: '2fc8355edd19010de6b168d4b9fe9cdd67cb2429',
     client_secret: 'CLIENT_SECRET',
