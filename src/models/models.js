@@ -2,10 +2,8 @@ const Sequelize = require('sequelize');
 const db = require('./database');
 
 const user = db.define('user', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+  login: {
+    type: Sequelize.STRING,
   },
   fullName: {
     type: Sequelize.STRING,
@@ -28,11 +26,6 @@ const user = db.define('user', {
 });
 
 const room = db.define('room', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
   number: {
     type: Sequelize.STRING,
   },
@@ -61,13 +54,20 @@ const reservation = db.define('reservation', {
 });
 
 const instrument = db.define('instrument', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
+  // id: {
+  //   type: Sequelize.INTEGER,
+  //   primaryKey: true,
+  //   autoIncrement: true,
+  // },
   name: {
     type: Sequelize.STRING,
+  },
+});
+
+const roomInstrument = db.define('roomInstrument', {
+  number: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1,
   },
 });
 
@@ -76,4 +76,5 @@ module.exports = {
   room,
   reservation,
   instrument,
+  roomInstrument,
 };

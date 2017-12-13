@@ -18,6 +18,11 @@ const printData = async () => {
   const userInstruments = await user.getInstruments();
   console.log('user instruments: ', userInstruments[0].get({ plain: true }));
   userInstruments.map((userInstrument) => { console.log('an instrument of ', user.getDataValue('fullName'), ' : ', userInstrument.get('name')); });
+
+  const userReservations = await user.getReservations();
+  console.log('user reservation: ', userReservations);
+  console.log('user reservation: ', userReservations[0].get({ plain: true }));
+  userReservations.map((userReservation) => { console.log('a reservation of ', user.getDataValue('fullName'), ' : ', userReservation.get('beginning')); });
 };
 
 module.exports = printData;

@@ -2,10 +2,13 @@ const db = require('../models/database');
 const models = require('../models/relations');
 
 const initializeDummyData = async () => {
-  // force: true will drop the table if it already exists
-  await db.sync();
+  // { force: true } will drop the table if it already exists
+
+  await db.sync({ force: true });
+
 
   const user = await models.user.create({
+    login: 'jdo',
     fullName: 'John Doe',
     password: 'password',
     mail: 'john.doe@supelec.fr',
@@ -14,6 +17,7 @@ const initializeDummyData = async () => {
     adherent: true,
   });
   await models.user.create({
+    login: 'bdo',
     fullName: 'Bob Doe',
     password: 'password',
     mail: 'bob.doe@supelec.fr',
@@ -22,6 +26,7 @@ const initializeDummyData = async () => {
     adherent: false,
   });
   await models.user.create({
+    login: 'hodys',
     fullName: 'Quentin Verlhac',
     password: 'password',
     mail: 'quentin.verlhac@student.ecp.fr',
@@ -62,10 +67,26 @@ const initializeDummyData = async () => {
     restricted: true,
   });
 
+
+  const reservation1 = await models.reservation.create({
+    beginning: '2017-12-12 15:00:00',
+    duration: 7200,
+  });
+
+  const reservation2 = await models.reservation.create({
+    beginning: '2017-12-12 14:00:00',
+    duration: 3600,
+  });
+
+
   await user.addInstruments(instrument, { through: { } });
   await room.addInstruments(instrument, { through: { } });
-  const something = await user.addRooms(room, { through: { beginning: '2017-12-12 14:00:00', duration: 3600 } });
-  return something;
+  await user.addReservation(reservation1);
+  await room.addReservation(reservation1);
+  await user.addReservation(reservation2);
+  await room.addReservation(reservation2);
+
+  return reservation2;
 };
 
 module.exports = initializeDummyData;
