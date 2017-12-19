@@ -1,7 +1,6 @@
 const models = require('../models/relations');
 
-// Get current user informations
-
+// Get connected user's information
 async function getCurrentUser(req, res, next) {
   try {
     const user = await models.user.findOne({
@@ -14,6 +13,7 @@ async function getCurrentUser(req, res, next) {
   }
 }
 
+// Get the information about the user whose login is given in the url
 async function getUser(req, res, next) {
   try {
     const user = await models.user.findOne({
@@ -26,6 +26,7 @@ async function getUser(req, res, next) {
   }
 }
 
+// Update the rights of the user whose login is given in the url
 async function updateUserRights(req, res, next) {
   try {
     const user = await models.user.findOne({ where: { login: req.params.login } });
@@ -38,6 +39,7 @@ async function updateUserRights(req, res, next) {
   }
 }
 
+// Update the phone of the connected user
 async function updateCurrentUserPhone(req, res, next) {
   try {
     const user = await models.user.findOne({ where: { login: req.user.user.login } });
@@ -49,7 +51,8 @@ async function updateCurrentUserPhone(req, res, next) {
   }
 }
 
-async function addUserInstruments(req, res, next) {
+// Add the given instrument to the logged user
+async function addUserInstrument(req, res, next) {
   try {
     const user = await models.user.findOne({
       where: { login: req.user.user.login },
@@ -66,7 +69,8 @@ async function addUserInstruments(req, res, next) {
   }
 }
 
-async function deleteUserInstruments(req, res, next) {
+// Add the given instrument to the logged user
+async function deleteUserInstrument(req, res, next) {
   try {
     const user = await models.user.findOne({
       where: { login: req.user.user.login },
@@ -90,7 +94,7 @@ module.exports = {
   getUser,
   updateUserRights,
   updateCurrentUserPhone,
-  addUserInstruments,
-  deleteUserInstruments,
+  addUserInstrument,
+  deleteUserInstrument,
 };
 
