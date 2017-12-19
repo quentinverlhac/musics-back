@@ -6,10 +6,11 @@ const jwt = require('express-jwt');
 
 const publicKey = fs.readFileSync('./src/oauth.pem');
 
-// const initializeDummyData = require('./tests/dataBaseCreationTest');
-// const printData = require('./tests/printDataTest');
 const authRouter = require('./auth/router');
 const routers = require('./routers');
+
+// const initializeDummyData = require('./tests/dataBaseCreationTest');
+// const printData = require('./tests/printDataTest');
 
 const app = express();
 
@@ -29,8 +30,11 @@ app.use(jwt({
   },
 }).unless({ path: ['/auth'] }));
 
+
 app.use('/auth', authRouter);
 
 app.use('/reservations', routers.reservations);
+
+app.use('/user', routers.user);
 
 module.exports = app;
