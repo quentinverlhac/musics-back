@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const initializeDummyData = require('./tests/dataBaseCreationTest');
-const printData = require('./tests/printDataTest');
+// const initializeDummyData = require('./tests/dataBaseCreationTest');
+// const printData = require('./tests/printDataTest');
 const authRouter = require('./auth/router');
 const routers = require('./routers');
 
@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/auth', authRouter);
-initializeDummyData().then(printData);
 
 app.use('/reservations', routers.reservations);
 
