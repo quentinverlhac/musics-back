@@ -28,7 +28,7 @@ async function getUser(req, res, next) {
 
 async function updateUserRights(req, res, next) {
   try {
-    const user = await models.user.findOne({ where: { login: req.body.login } });
+    const user = await models.user.findOne({ where: { login: req.params.login } });
     user.adherent = req.body.adherent;
     user.admin = req.body.admin;
     await user.save();
