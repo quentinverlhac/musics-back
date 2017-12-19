@@ -10,18 +10,22 @@ const user = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
+    defaultValue: null,
   },
   mail: {
     type: Sequelize.STRING,
   },
   telephone: {
     type: Sequelize.STRING,
+    defaultValue: null,
   },
   admin: {
     type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
   adherent: {
     type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 });
 
