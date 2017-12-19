@@ -14,7 +14,31 @@ async function getCurrentUser(req, res, next) {
   }
 }
 
-async function updateUserPhone(req, res, next) {
+async function getUser(req, res, next) {
+  try {
+    const user = await models.user.findOne({
+      where: { login: req.params.login },
+      include: [models.instrument],
+    });
+    res.send(user);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function updateUserRights(req, res, next) {
+  try {
+    const user = await models.user.findOne({ where: { login: req.body.login } });
+    user.adherent = req.body.adherent;
+    user.admin = req.body.admin;
+    await user.save();
+    res.send(user);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function updateCurrentUserPhone(req, res, next) {
   try {
     const user = await models.user.findOne({ where: { login: req.user.user.login } });
     user.telephone = req.body.telephone;
@@ -60,9 +84,12 @@ async function deleteUserInstruments(req, res, next) {
   }
 }
 
+
 module.exports = {
   getCurrentUser,
-  updateUserPhone,
+  getUser,
+  updateUserRights,
+  updateCurrentUserPhone,
   addUserInstruments,
   deleteUserInstruments,
 };
