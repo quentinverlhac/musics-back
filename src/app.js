@@ -34,7 +34,7 @@ app.use(jwt({
 app.use('/auth', authRouter);
 
 app.use('/reservations', routers.reservations);
-
 app.use('/user', routers.user);
+app.use('/instruments', routers.instruments);
 
 module.exports = app;
