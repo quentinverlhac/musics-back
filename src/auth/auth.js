@@ -1,5 +1,6 @@
 const axios = require('axios');
 const querystring = require('querystring');
+const models = require('../models/relations');
 
 const config = require('../../config');
 
@@ -25,10 +26,18 @@ module.exports = (req, res) => {
           login: apiResponse.data.login,
           email: apiResponse.data.email,
         };
+        models.user.findOrCreate({
+          where: {
+            login: user.login,
+          },
+          defaults: {
+            fullName: `${user.firstname} ${user.lastname}`,
+            mail: user.email,
+          },
+        });
         res.json({
           access_token: data.access_token,
           expires_at: data.expires_at,
-          user,
         });
       }).catch(err => console.log(err));
     })
