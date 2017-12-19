@@ -29,11 +29,32 @@ async function addUserInstruments(req, res, next) {
   try {
     const user = await models.user.findOne({
       where: { login: req.user.user.login },
-      include: [models.instrument],
     });
     const instrument = await models.instrument.findById(req.body.instrumentId);
     await user.addInstrument(instrument, { through: { } });
-    res.send(user);
+    const userInstruments = await models.user.findOne({
+      where: { login: req.user.user.login },
+      include: [models.instrument],
+    });
+    res.send(userInstruments);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function deleteUserInstruments(req, res, next) {
+  try {
+    const user = await models.user.findOne({
+      where: { login: req.user.user.login },
+      include: [models.instrument],
+    });
+    const instrument = await models.instrument.findById(req.body.instrumentId);
+    await user.removeInstrument(instrument, { through: { } });
+    const userInstruments = await models.user.findOne({
+      where: { login: req.user.user.login },
+      include: [models.instrument],
+    });
+    res.send(userInstruments);
   } catch (e) {
     next(e);
   }
@@ -43,5 +64,6 @@ module.exports = {
   getCurrentUser,
   updateUserPhone,
   addUserInstruments,
+  deleteUserInstruments,
 };
 

@@ -11,8 +11,17 @@ async function getInstruments(req, res, next) {
   }
 }
 
+async function addInstrument(req, res, next) {
+  try {
+    const instrument = await models.instrument.create({ name: req.body.name });
+    res.send(instrument);
+  } catch (e) {
+    next(e);
+  }
+}
 
 module.exports = {
   getInstruments,
+  addInstrument,
 };
 

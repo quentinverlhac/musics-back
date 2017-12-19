@@ -7,6 +7,7 @@ const router = new express.Router();
 
 router.route('/me').get(userController.getCurrentUser);
 router.route('/me').put(userController.updateUserPhone);
-router.route('/me/instruments').put(userController.addUserInstruments);
+router.route('/me/instruments').post(userController.addUserInstruments);
+router.route('/me/instruments').delete(userController.deleteUserInstruments);
 
 module.exports = router;
