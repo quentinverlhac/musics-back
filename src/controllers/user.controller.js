@@ -91,7 +91,9 @@ async function deleteUserInstrument(req, res, next) {
 // Get a user's reservations
 async function getUserReservations(req, res, next) {
   try {
-    const user = await models.user.findById(req.params.userId);
+    const user = await models.user.findOne({
+      where: { login: req.params.login },
+    });
     const reservations = await user.getReservations();
     res.send(reservations);
   } catch (e) {

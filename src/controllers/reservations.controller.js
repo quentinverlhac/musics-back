@@ -4,7 +4,9 @@ const models = require('../models/relations');
 
 async function getReservation(req, res, next) {
   try {
-    const reservation = await models.reservation.findById(req.params.reservationId);
+    const reservation = await models.reservation.findById(req.params.reservationId, {
+      include: [models.user],
+    });
     res.send(reservation);
   } catch (e) {
     next(e);
@@ -30,7 +32,9 @@ async function updateReservation(req, res, next) {
 
 async function getAllReservations(req, res, next) {
   try {
-    const reservations = await models.reservation.findAll();
+    const reservations = await models.reservation.findAll({
+      include: [models.user],
+    });
     res.send(reservations);
   } catch (e) {
     next(e);

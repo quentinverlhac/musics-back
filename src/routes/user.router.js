@@ -11,6 +11,6 @@ router.route('/me/instruments').post(userController.addUserInstrument);
 router.route('/me/instruments').delete(userController.deleteUserInstrument);
 router.route('/:login').get(userController.getUser);
 router.route('/:login').put(userController.updateUserRights);
-router.route('/:userId/reservations').get(userController.getUserReservations);
+router.route('/:login/reservations').get(userController.getUserReservations);
 
 module.exports = router;
