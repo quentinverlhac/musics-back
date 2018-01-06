@@ -1,5 +1,17 @@
 const models = require('../models/relations');
 
+// Get the information about every room
+async function getAllRooms(req, res, next) {
+  try {
+    const rooms = await models.room.findAll({
+      include: [models.instrument],
+    });
+    res.send(rooms);
+  } catch (e) {
+    next(e);
+  }
+}
+
 // Get the information about the room which id given in the url
 async function getRoom(req, res, next) {
   try {
@@ -65,6 +77,7 @@ async function deleteRoomInstrument(req, res, next) {
 
 
 module.exports = {
+  getAllRooms,
   getRoom,
   updateRoom,
   addRoomInstrument,
