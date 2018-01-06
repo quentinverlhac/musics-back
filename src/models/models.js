@@ -58,11 +58,6 @@ const reservation = db.define('reservation', {
 });
 
 const instrument = db.define('instrument', {
-  // id: {
-  //   type: Sequelize.INTEGER,
-  //   primaryKey: true,
-  //   autoIncrement: true,
-  // },
   name: {
     type: Sequelize.STRING,
   },

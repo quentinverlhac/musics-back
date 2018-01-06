@@ -1,8 +1,8 @@
 const models = require('../models/relations');
 
-// Get instruments
+// Get all the instruments
 
-async function getInstruments(req, res, next) {
+async function getAllInstruments(req, res, next) {
   try {
     const instruments = await models.instrument.findAll();
     res.send(instruments);
@@ -10,6 +10,8 @@ async function getInstruments(req, res, next) {
     next(e);
   }
 }
+
+// Add an instrument
 
 async function addInstrument(req, res, next) {
   try {
@@ -21,7 +23,7 @@ async function addInstrument(req, res, next) {
 }
 
 module.exports = {
-  getInstruments,
+  getAllInstruments,
   addInstrument,
 };
 
