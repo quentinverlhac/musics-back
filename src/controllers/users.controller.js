@@ -1,5 +1,17 @@
 const models = require('../models/relations');
 
+// Get the information about all users
+async function getAllUsers(req, res, next) {
+  try {
+    const users = await models.user.findAll({
+      include: [models.instrument],
+    });
+    res.send(users);
+  } catch (e) {
+    next(e);
+  }
+}
+
 // Get connected user's information
 async function getCurrentUser(req, res, next) {
   try {
@@ -103,6 +115,7 @@ async function getUserReservations(req, res, next) {
 
 
 module.exports = {
+  getAllUsers,
   getCurrentUser,
   getUser,
   updateUserRights,

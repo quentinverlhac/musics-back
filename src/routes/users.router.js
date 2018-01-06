@@ -5,6 +5,7 @@ const router = new express.Router();
 
 // TODO: implement an error handler middleware and add it to every stack
 
+router.route('/').get(usersController.getAllUsers);
 router.route('/me').get(usersController.getCurrentUser);
 router.route('/me').put(usersController.updateCurrentUserPhone);
 router.route('/me/instruments').post(usersController.addUserInstrument);
