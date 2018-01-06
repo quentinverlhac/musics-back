@@ -36,5 +36,6 @@ app.use('/auth', authRouter);
 app.use('/reservations', routers.reservations);
 app.use('/user', routers.user);
 app.use('/instruments', routers.instruments);
+app.use('/rooms', routers.rooms);
 
 module.exports = app;
