@@ -1,7 +1,7 @@
 const models = require('../models/relations');
 
 // Get the information about the room which id given in the url
-async function getUser(req, res, next) {
+async function getRoom(req, res, next) {
   try {
     const room = await models.room.findOne({
       where: { roomId: req.params.roomId },
@@ -14,7 +14,7 @@ async function getUser(req, res, next) {
 }
 
 // Update the information of the room which id is given in the url
-async function updateUserRights(req, res, next) {
+async function updateRoom(req, res, next) {
   try {
     const room = await models.room.findOne({ where: { roomId: req.params.roomId } });
     room.capacity = req.body.capacity;
@@ -44,20 +44,20 @@ async function addRoomInstrument(req, res, next) {
   }
 }
 
-// Add the given instrument to the logged room
-async function deleteUserInstrument(req, res, next) {
+// Delete the given instrument from the room which id is given in the url
+async function deleteRoomInstrument(req, res, next) {
   try {
     const room = await models.room.findOne({
-      where: { login: req.room.room.login },
+      where: { roomId: req.params.roomId },
       include: [models.instrument],
     });
     const instrument = await models.instrument.findById(req.body.instrumentId);
     await room.removeInstrument(instrument, { through: { } });
-    const userInstruments = await models.room.findOne({
-      where: { login: req.room.room.login },
+    const roomInstruments = await models.room.findOne({
+      where: { roomId: req.params.roomId },
       include: [models.instrument],
     });
-    res.send(userInstruments);
+    res.send(roomInstruments);
   } catch (e) {
     next(e);
   }
@@ -65,10 +65,8 @@ async function deleteUserInstrument(req, res, next) {
 
 
 module.exports = {
-  getCurrentUser,
-  getUser,
-  updateUserRights,
-  updateCurrentUserPhone,
-  addUserInstrument,
-  deleteUserInstrument,
+  getRoom,
+  updateRoom,
+  addRoomInstrument,
+  deleteRoomInstrument,
 };
