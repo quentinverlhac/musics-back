@@ -33,7 +33,7 @@ async function updateReservation(req, res, next) {
 async function getAllReservations(req, res, next) {
   try {
     const reservations = await models.reservation.findAll({
-      include: [models.user],
+      include: [models.user, models.room],
     });
     res.send(reservations);
   } catch (e) {
