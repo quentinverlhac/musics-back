@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 const models = require('../models/relations');
 
 // Get the information about every room
@@ -7,6 +9,40 @@ async function getAllRooms(req, res, next) {
       include: [models.instrument],
     });
     res.send(rooms);
+  } catch (e) {
+    next(e);
+  }
+}
+
+// Get the available rooms for the selected date
+async function getAllAvailableRooms(req, res, next) {
+  try {
+    const Op = Sequelize.Op;
+    console.log(req.body.beginning);
+    console.log(Date.parse(req.body.beginning));
+    console.log(Date.parse(req.body.beginning) + (req.body.duration * 1000));
+    console.log(new Date(Date.parse(req.body.beginning) + (req.body.duration * 1000)));
+    const uncompatibleReservations = await models.reservation.findAll({
+      where: {
+        beginning: {
+          [Op.lt]: new Date(Date.parse(req.body.beginning) + (req.body.duration * 1000)),
+        },
+        // duration: {
+        //   [Op.gt]: ((Date.parse(req.body.beginning) - Date.parse(this.beginning)) / 1000),
+        // },
+      },
+    });
+    console.log(uncompatibleReservations);
+    console.log(uncompatibleReservations.map(entity => entity.get('roomId')));
+    const availableRooms = await models.room.findAll({
+      where: {
+        id: {
+          [Op.in]: uncompatibleReservations.map(entity => entity.get('roomId')),
+        },
+      },
+      include: [models.instrument],
+    });
+    res.send(availableRooms);
   } catch (e) {
     next(e);
   }
@@ -74,6 +110,7 @@ async function deleteRoomInstrument(req, res, next) {
 
 module.exports = {
   getAllRooms,
+  getAllAvailableRooms,
   getRoom,
   updateRoom,
   addRoomInstrument,
