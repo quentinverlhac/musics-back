@@ -38,7 +38,6 @@ async function updateCurrentUserPhone(req, res, next) {
   }
 }
 
-
 // Add the given instrument to the logged user
 async function addCurrentUserInstrument(req, res, next) {
   try {
@@ -88,6 +87,24 @@ async function getCurrentUserReservations(req, res, next) {
     next(e);
   }
 }
+
+/**
+ * @api {get} /users/:login GetUser
+ * @apiName GetUser
+ * @apiGroup Users
+ *
+ * @apiParam {Sring} login Users VIAREZO OAuth login.
+ *
+ * @apiSuccess {Object} user The User object.
+ * @apiSuccess {String} user.login Login of the User.
+ * @apiSuccess {String} user.fullName Fullname of the User.
+ * @apiSuccess {String} user.password Password of the User (TO REMOVE).
+ * @apiSuccess {String} user.mail Mail of the User.
+ * @apiSuccess {String} user.telephone Phone of the User.
+ * @apiSuccess {Boolean} user.admin Admin of the User.
+ * @apiSuccess {Boolean} user.adherent Adherent of the User.
+ * @apiSuccess {Object} user.instrument Instruments of the User.
+ */
 
 // Get the information about the user whose login is given in the url
 async function getUser(req, res, next) {
