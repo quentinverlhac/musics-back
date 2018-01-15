@@ -9,11 +9,11 @@ const publicKey = fs.readFileSync('./src/oauth.pem');
 const authRouter = require('./auth/router');
 const routers = require('./routers');
 
-const initializeDummyData = require('./tests/dataBaseCreationTest');
-const printData = require('./tests/printDataTest');
-
-initializeDummyData();
-printData();
+// TODO: delete the following lines
+// const initializeDummyData = require('./tests/dataBaseCreationTest');
+// const printData = require('./tests/printDataTest');
+// initializeDummyData();
+// printData();
 
 const app = express();
 

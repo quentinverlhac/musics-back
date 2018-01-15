@@ -18,26 +18,26 @@ async function getAllRooms(req, res, next) {
 async function getAllAvailableRooms(req, res, next) {
   try {
     const Op = Sequelize.Op;
-    console.log(req.body.beginning);
-    console.log(Date.parse(req.body.beginning));
-    console.log(Date.parse(req.body.beginning) + (req.body.duration * 1000));
-    console.log(new Date(Date.parse(req.body.beginning) + (req.body.duration * 1000)));
     const uncompatibleReservations = await models.reservation.findAll({
       where: {
-        beginning: {
-          [Op.lt]: new Date(Date.parse(req.body.beginning) + (req.body.duration * 1000)),
-        },
-        // duration: {
-        //   [Op.gt]: ((Date.parse(req.body.beginning) - Date.parse(this.beginning)) / 1000),
-        // },
+        [Op.and]: [
+          {
+            beginning: {
+              [Op.lt]: new Date(Date.parse(req.body.end)),
+            },
+          },
+          {
+            end: {
+              [Op.gt]: new Date(Date.parse(req.body.beginning)),
+            },
+          },
+        ],
       },
     });
-    console.log(uncompatibleReservations);
-    console.log(uncompatibleReservations.map(entity => entity.get('roomId')));
     const availableRooms = await models.room.findAll({
       where: {
         id: {
-          [Op.in]: uncompatibleReservations.map(entity => entity.get('roomId')),
+          [Op.notIn]: uncompatibleReservations.map(entity => entity.get('roomId')),
         },
       },
       include: [models.instrument],
