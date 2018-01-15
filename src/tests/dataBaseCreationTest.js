@@ -69,13 +69,13 @@ const initializeDummyData = async () => {
 
 
   const reservation1 = await models.reservation.create({
-    beginning: '2017-12-12 15:00:00',
-    duration: 7200,
+    beginning: '2018-01-15 15:00:00',
+    end: '2018-01-15 17:00:00',
   });
 
   const reservation2 = await models.reservation.create({
-    beginning: '2017-12-12 14:00:00',
-    duration: 3600,
+    beginning: '2018-01-15 14:00:00',
+    end: '2018-01-15 15:00:00',
   });
 
 

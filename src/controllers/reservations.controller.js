@@ -20,7 +20,7 @@ async function updateReservation(req, res, next) {
     // TODO: check if the reservation can be updated
     const reservation = await models.reservation.findById(req.params.reservationId);
     reservation.beginning = req.body.beginning;
-    reservation.duration = req.body.duration;
+    reservation.end = req.body.end;
     await reservation.save();
     res.send(reservation);
   } catch (e) {
@@ -50,7 +50,7 @@ async function createReservation(req, res, next) {
     const room = await models.room.findById(req.body.roomId);
     const reservation = await models.reservation.create({
       beginning: req.body.beginning,
-      duration: req.body.duration,
+      end: req.body.end,
     });
     await user.addReservation(reservation);
     await room.addReservation(reservation);

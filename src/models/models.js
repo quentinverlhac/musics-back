@@ -51,9 +51,8 @@ const reservation = db.define('reservation', {
   beginning: {
     type: Sequelize.DATE,
   },
-  duration: {
-    // in seconds
-    type: Sequelize.INTEGER,
+  end: {
+    type: Sequelize.DATE,
   },
 });
 
