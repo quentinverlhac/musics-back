@@ -4,6 +4,7 @@ const usersController = require('../controllers/users.controller');
 const router = new express.Router();
 
 // TODO: implement an error handler middleware and add it to every stack
+// TODO: refactor the code above to call only once a route (serialize the .method)
 
 router.route('/').get(usersController.getAllUsers);
 router.route('/me').get(usersController.getCurrentUser);

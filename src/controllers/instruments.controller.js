@@ -15,7 +15,7 @@ async function getAllInstruments(req, res, next) {
 
 async function addInstrument(req, res, next) {
   try {
-    const instrument = await models.instrument.create({ name: req.body.name });
+    const instrument = await models.instrument.findOrCreate({ where: { name: req.body.name } });
     res.send(instrument);
   } catch (e) {
     next(e);
