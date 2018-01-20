@@ -18,8 +18,7 @@ const instrument = Joi.object().keys({
 
 const checkDate = (req, res, next) => {
   if (Date.parse(req.body.beginning) > Date.parse(req.body.end)) {
-    const err = new Error('Error: the beginning of the reservation starts after the end');
-    res.status(400).send(err);
+    res.status(400).send('Error: the beginning of the reservation starts after the end');
   } else {
     next();
   }
