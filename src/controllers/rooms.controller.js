@@ -17,7 +17,6 @@ async function getAllRooms(req, res, next) {
 async function getAllAvailableRooms(req, res, next) {
   try {
     const availableRooms = await searchAvailableRooms.search(req.body.beginning, req.body.end);
-    console.log(`in controller: ${availableRooms}`);
     res.send(availableRooms);
   } catch (e) {
     next(e);

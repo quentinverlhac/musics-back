@@ -28,7 +28,6 @@ async function search(beginning, end) {
     },
     include: [models.instrument],
   });
-  console.log(availableRooms);
   return availableRooms;
 }
 
