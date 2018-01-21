@@ -8,6 +8,7 @@ const publicKey = fs.readFileSync('./src/oauth.pem');
 
 const authRouter = require('./auth/router');
 const routers = require('./routers');
+const errorHandler = require('./misc/error.handler');
 
 // TODO: delete the following lines
 // const initializeDummyData = require('./tests/dataBaseCreationTest');
@@ -40,5 +41,7 @@ app.use('/reservations', routers.reservations);
 app.use('/users', routers.users);
 app.use('/instruments', routers.instruments);
 app.use('/rooms', routers.rooms);
+
+app.use(errorHandler);
 
 module.exports = app;
