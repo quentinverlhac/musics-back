@@ -2,6 +2,7 @@ const express = require('express');
 const usersController = require('../controllers/users.controller');
 const validate = require('../validations/validate');
 const usersValidation = require('../validations/users.validation');
+const rightsValidation = require('../validations/rights.validation');
 
 const router = new express.Router();
 
@@ -15,7 +16,7 @@ router.route('/me/instruments').post(validate.validateBody(usersValidation.instr
 router.route('/me/instruments').delete(validate.validateBody(usersValidation.instrument), usersController.deleteCurrentUserInstrument);
 router.route('/me/reservations').get(usersController.getCurrentUserReservations);
 router.route('/:login').get(usersController.getUser);
-router.route('/:login').put(validate.validateBody(usersValidation.rights), usersController.updateUserRights);
+router.route('/:login').put(validate.validateBody(usersValidation.rights), rightsValidation.checkAdmin, usersController.updateUserRights);
 router.route('/:login/reservations').get(usersController.getUserReservations);
 
 module.exports = router;

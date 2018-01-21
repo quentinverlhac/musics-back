@@ -14,19 +14,20 @@ async function getReservation(req, res, next) {
 }
 
 // Edit a given reservation
+// TODO: remove update
 
-async function updateReservation(req, res, next) {
-  try {
-    // TODO: check if the reservation can be updated
-    const reservation = await models.reservation.findById(req.params.reservationId);
-    reservation.beginning = req.body.beginning;
-    reservation.end = req.body.end;
-    await reservation.save();
-    res.send(reservation);
-  } catch (e) {
-    next(e);
-  }
-}
+// async function updateReservation(req, res, next) {
+//   try {
+//     // TODO: check if the reservation can be updated
+//     const reservation = await models.reservation.findById(req.params.reservationId);
+//     reservation.beginning = req.body.beginning;
+//     reservation.end = req.body.end;
+//     await reservation.save();
+//     res.send(reservation);
+//   } catch (e) {
+//     next(e);
+//   }
+// }
 
 // Get all reservations
 
@@ -72,10 +73,11 @@ async function deleteReservation(req, res, next) {
   }
 }
 
+// TODO: remove update
 
 module.exports = {
   getReservation,
-  updateReservation,
+  // updateReservation,
   getAllReservations,
   createReservation,
   deleteReservation,
