@@ -13,22 +13,6 @@ async function getReservation(req, res, next) {
   }
 }
 
-// Edit a given reservation
-// TODO: remove update
-
-// async function updateReservation(req, res, next) {
-//   try {
-//     // TODO: check if the reservation can be updated
-//     const reservation = await models.reservation.findById(req.params.reservationId);
-//     reservation.beginning = req.body.beginning;
-//     reservation.end = req.body.end;
-//     await reservation.save();
-//     res.send(reservation);
-//   } catch (e) {
-//     next(e);
-//   }
-// }
-
 // Get all reservations
 
 async function getAllReservations(req, res, next) {
@@ -46,7 +30,6 @@ async function getAllReservations(req, res, next) {
 
 async function createReservation(req, res, next) {
   try {
-    // TODO: check if reservation is available
     const user = await models.user.findById(req.body.userId);
     const room = await models.room.findById(req.body.roomId);
     const reservation = await models.reservation.create({
@@ -73,11 +56,8 @@ async function deleteReservation(req, res, next) {
   }
 }
 
-// TODO: remove update
-
 module.exports = {
   getReservation,
-  // updateReservation,
   getAllReservations,
   createReservation,
   deleteReservation,

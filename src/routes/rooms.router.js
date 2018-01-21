@@ -6,8 +6,6 @@ const rightsValidation = require('../validations/rights.validation');
 
 const router = new express.Router();
 
-// TODO: implement an error handler middleware and add it to every stack
-
 router.route('/').get(roomsController.getAllRooms);
 router.route('/availables').post(validation.validateBody(roomsValidation.date), roomsValidation.checkDate, roomsController.getAllAvailableRooms);
 router.route('/:roomId').get(roomsController.getRoom);
