@@ -1,6 +1,5 @@
-const Sequelize = require('sequelize');
-
 const models = require('../models/relations');
+const searchAvailableRooms = require('../misc/search.available.rooms');
 
 // Get the information about every room
 async function getAllRooms(req, res, next) {
@@ -17,31 +16,8 @@ async function getAllRooms(req, res, next) {
 // Get the available rooms for the selected date
 async function getAllAvailableRooms(req, res, next) {
   try {
-    const Op = Sequelize.Op;
-    const uncompatibleReservations = await models.reservation.findAll({
-      where: {
-        [Op.and]: [
-          {
-            beginning: {
-              [Op.lt]: new Date(Date.parse(req.body.end)),
-            },
-          },
-          {
-            end: {
-              [Op.gt]: new Date(Date.parse(req.body.beginning)),
-            },
-          },
-        ],
-      },
-    });
-    const availableRooms = await models.room.findAll({
-      where: {
-        id: {
-          [Op.notIn]: uncompatibleReservations.map(entity => entity.get('roomId')),
-        },
-      },
-      include: [models.instrument],
-    });
+    const availableRooms = await searchAvailableRooms.search(req.body.beginning, req.body.end);
+    console.log(`in controller: ${availableRooms}`);
     res.send(availableRooms);
   } catch (e) {
     next(e);
