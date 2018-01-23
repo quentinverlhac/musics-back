@@ -1,8 +1,10 @@
 const express = require('express');
+
 const roomsController = require('../controllers/rooms.controller');
 const validation = require('../validations/validate');
 const roomsValidation = require('../validations/rooms.validation');
 const rightsValidation = require('../validations/rights.validation');
+const errorHandler = require('../misc/error.handler');
 
 const router = new express.Router();
 
@@ -12,5 +14,6 @@ router.route('/:roomId').get(roomsController.getRoom);
 router.route('/:roomId').put(validation.validateBody(roomsValidation.room), rightsValidation.checkAdmin, roomsController.updateRoom);
 router.route('/:roomId/instruments').post(validation.validateBody(roomsValidation.instrument), rightsValidation.checkAdmin, roomsController.addRoomInstrument);
 router.route('/:roomId/instruments').delete(validation.validateBody(roomsValidation.instrument), rightsValidation.checkAdmin, roomsController.deleteRoomInstrument);
+router.use(errorHandler);
 
 module.exports = router;

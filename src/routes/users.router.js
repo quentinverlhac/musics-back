@@ -3,6 +3,7 @@ const usersController = require('../controllers/users.controller');
 const validate = require('../validations/validate');
 const usersValidation = require('../validations/users.validation');
 const rightsValidation = require('../validations/rights.validation');
+const errorHandler = require('../misc/error.handler');
 
 const router = new express.Router();
 
@@ -15,5 +16,6 @@ router.route('/me/reservations').get(usersController.getCurrentUserReservations)
 router.route('/:login').get(usersController.getUser);
 router.route('/:login').put(validate.validateBody(usersValidation.rights), rightsValidation.checkAdmin, usersController.updateUserRights);
 router.route('/:login/reservations').get(usersController.getUserReservations);
+router.use(errorHandler);
 
 module.exports = router;
