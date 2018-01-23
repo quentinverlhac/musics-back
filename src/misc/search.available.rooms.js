@@ -22,9 +22,16 @@ async function search(beginning, end) {
   });
   const availableRooms = await models.room.findAll({
     where: {
-      id: {
-        [Op.notIn]: uncompatibleReservations.map(entity => entity.get('roomId')),
-      },
+      [Op.and]: [
+        {
+          id: {
+            [Op.notIn]: uncompatibleReservations.map(entity => entity.get('roomId')),
+          },
+        },
+        {
+          restricted: false,
+        },
+      ],
     },
     include: [models.instrument],
   });
