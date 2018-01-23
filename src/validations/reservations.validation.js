@@ -9,7 +9,6 @@ const date = Joi.object().keys({
 });
 
 const reservation = Joi.object().keys({
-  userId: Joi.number().integer(),
   roomId: Joi.number().integer(),
   beginning: Joi.date().required(),
   end: Joi.date().required(),
@@ -64,9 +63,25 @@ async function checkRightsForReservation(req, res, next) {
   }
 }
 
+async function checkAdherent(req, res, next) {
+  try {
+    const currentUser = await models.user.findOne({
+      where: { login: req.user.user.login },
+    });
+    if (currentUser.get('adherent')) {
+      next();
+    } else {
+      res.status(403).send('Unauthorized request: the connect user is not adherent to MUSICS');
+    }
+  } catch (e) {
+    next(e);
+  }
+}
+
 module.exports = {
   date,
   reservation,
   checkDate,
   checkRightsForReservation,
+  checkAdherent,
 };

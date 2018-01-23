@@ -38,7 +38,11 @@ async function getAllReservations(req, res, next) {
 
 async function createReservation(req, res, next) {
   try {
-    const user = await models.user.findById(req.body.userId);
+    const user = await models.user.findOne({
+      where: {
+        login: req.user.user.login,
+      },
+    });
     const room = await models.room.findById(req.body.roomId);
     const reservation = await models.reservation.create({
       beginning: req.body.beginning,

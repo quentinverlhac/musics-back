@@ -9,7 +9,7 @@ const router = new express.Router();
 
 router.route('/:reservationId').get(reservationsController.getReservation);
 router.route('/').get(reservationsController.getAllReservations);
-router.route('/').post(validation.validateBody(reservationsValidation.reservation), reservationsValidation.checkDate, reservationsValidation.checkRightsForReservation, reservationsController.createReservation);
+router.route('/').post(validation.validateBody(reservationsValidation.reservation), reservationsValidation.checkDate, reservationsController.createReservation);
 router.route('/:reservationId').delete(reservationsValidation.checkRightsForReservation, reservationsController.deleteReservation);
 router.use(errorHandler);
 
