@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 const models = require('../models/relations');
 
 // Get a given reservation
@@ -16,9 +18,15 @@ async function getReservation(req, res, next) {
 // Get all reservations
 
 async function getAllReservations(req, res, next) {
+  const Op = Sequelize.Op;
   try {
     const reservations = await models.reservation.findAll({
       include: [models.user, models.room],
+      where: {
+        beginning: {
+          [Op.gte]: Date.now(),
+        },
+      },
     });
     res.send(reservations);
   } catch (e) {

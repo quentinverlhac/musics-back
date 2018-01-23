@@ -1,3 +1,6 @@
+const Sequelize = require('sequelize');
+
+const Op = Sequelize.Op;
 const models = require('../models/relations');
 
 // Get the information about all users
@@ -79,9 +82,17 @@ async function deleteCurrentUserInstrument(req, res, next) {
 async function getCurrentUserReservations(req, res, next) {
   try {
     const user = await models.user.findOne({
-      where: { login: req.user.user.login },
+      where: {
+        login: req.user.user.login,
+      },
     });
-    const reservations = await user.getReservations();
+    const reservations = await user.getReservations({
+      where: {
+        beginning: {
+          [Op.gte]: Date.now(),
+        },
+      },
+    });
     res.send(reservations);
   } catch (e) {
     next(e);
@@ -136,9 +147,17 @@ async function updateUserRights(req, res, next) {
 async function getUserReservations(req, res, next) {
   try {
     const user = await models.user.findOne({
-      where: { login: req.params.login },
+      where: {
+        login: req.params.login,
+      },
     });
-    const reservations = await user.getReservations();
+    const reservations = await user.getReservations({
+      where: {
+        beginning: {
+          [Op.gte]: Date.now(),
+        },
+      },
+    });
     res.send(reservations);
   } catch (e) {
     next(e);
