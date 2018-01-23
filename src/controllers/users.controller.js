@@ -109,7 +109,6 @@ async function getCurrentUserReservations(req, res, next) {
  * @apiSuccess {Object} user The User object.
  * @apiSuccess {String} user.login Login of the User.
  * @apiSuccess {String} user.fullName Fullname of the User.
- * @apiSuccess {String} user.password Password of the User (TO REMOVE).
  * @apiSuccess {String} user.mail Mail of the User.
  * @apiSuccess {String} user.telephone Phone of the User.
  * @apiSuccess {Boolean} user.admin Admin of the User.

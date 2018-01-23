@@ -8,10 +8,6 @@ const user = db.define('user', {
   fullName: {
     type: Sequelize.STRING,
   },
-  password: {
-    type: Sequelize.STRING,
-    defaultValue: null,
-  },
   mail: {
     type: Sequelize.STRING,
   },
