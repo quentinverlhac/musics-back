@@ -11,6 +11,12 @@ const routers = require('./routers');
 
 const app = express();
 
+
+// To initialise database:
+// const initialiseDatabase = require('./tests/initialiseDatabase');
+// initialiseDatabase();
+
+
 app.use(cors());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
