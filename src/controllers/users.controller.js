@@ -87,6 +87,7 @@ async function getCurrentUserReservations(req, res, next) {
       },
     });
     const reservations = await user.getReservations({
+      include: [models.user, models.room],
       where: {
         beginning: {
           [Op.gte]: Date.now(),
